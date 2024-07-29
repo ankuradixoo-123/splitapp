@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';  // Ensure this path is correct
-// import { useAuth } from '../AuthContext/AuthContext';
+import { useAuth } from '../AuthContext/AuthContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
-  // const { login } = useAuth();
+  const { login } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -20,14 +20,14 @@ const Login = () => {
       });
 
       const { data } = response;
-      // login(data.token);
+      login(data.token);
 
       // Store the token in localStorage or sessionStorage if needed
       localStorage.setItem('token', data.token);
 
       setMessage('Login successful!');
       // Redirect to the dashboard or home page
-      navigate('/');
+      navigate('/Home');
     } catch (error) {
       console.error('Invalid user credentials!', error);
       setMessage('Login failed. Please check your credentials and try again.');
@@ -54,7 +54,7 @@ const Login = () => {
         />
         <button type="submit">Login</button>
         <span>
-          Don't have an account? <Link to="/register">Register</Link>
+          Don't have an account? <Link to="/">Register</Link>
         </span>
       </form>
       {message && <p>{message}</p>}

@@ -5,7 +5,7 @@ const Group = () => {
   return (
     <div className="create-group">
     <header className="header">
-      <h1 className="home-title"><Link to="/">Splitwise</Link></h1>
+      <h1 className="home-title"><Link to="/Home">Splitwise</Link></h1>
       <h1 className="user-page"><Link to="/User">User Page</Link></h1>
     </header>
     <main className="main-content">
@@ -23,7 +23,7 @@ const Group = () => {
           <label htmlFor="email">Email:</label>
           <input type="email" id="email" name="email" />
         </div>
-        <Link to="/">
+        <Link to="/Home">
         <button type="submit" className="create-group-button">Create Group</button>
         </Link>
       </form>

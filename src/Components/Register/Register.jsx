@@ -1,8 +1,8 @@
 import React,{useState} from 'react'
-import { Link ,  useNavigate} from 'react-router-dom'
+import {   useNavigate} from 'react-router-dom'
 import './Register.css';
 import axios from 'axios';
-// import { useAuth } from '../AuthContext/AuthContext';
+import { useAuth } from '../AuthContext/AuthContext';
 
 const Register = () => {
 
@@ -11,7 +11,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
-  // const { login } = useAuth();
+  const { login } = useAuth();
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
@@ -22,12 +22,13 @@ const Register = () => {
       });
       // Example of extracting data from the response
       const { data } = response;
-      // login(data.token);
+      login(data.token);
       console.log('Registration Response:', data);
 
       
-      // localStorage.setItem('token', data.token);
-      navigate('/');
+      localStorage.setItem('token', data.token);
+      console.log(data.token)
+      navigate('/login');
       setMessage('Registration successful!');
     } catch (error) {
       console.error('Error registering user:', error);
@@ -45,7 +46,7 @@ const Register = () => {
         
        <button type='submit'>Signup</button>
       
-       <span>Already have an account ? <Link to="/login">Login</Link></span>
+       {/* <span>Already have an account ? <Link to="/login">Login</Link></span> */}
       </form>
       {message && <p>{message}</p>}
     </div>
