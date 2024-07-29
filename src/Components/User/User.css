@@ -1,0 +1,41 @@
+.user-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    /* border: 1px solid #ddd; */
+    border-radius: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .user-photo img {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 20px;
+  }
+  
+  .user-details {
+    width: 100%;
+  }
+  
+  .user-field {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  .user-field label {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #333;
+  }
+  
+  .user-field p {
+    margin: 5px 0 0;
+    font-size: 1em;
+    color: #555;
+  }
+  
