@@ -1,5 +1,5 @@
-import React,{useState} from 'react'
-import {   useNavigate} from 'react-router-dom'
+import React,{useEffect, useState} from 'react'
+import { Link,  useNavigate} from 'react-router-dom'
 import './Register.css';
 import axios from 'axios';
 import { useAuth } from '../AuthContext/AuthContext';
@@ -12,8 +12,19 @@ const Register = () => {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
   const { login } = useAuth();
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  useEffect(() => {
+    localStorage.clear();
+  }, [])
+
   const handleRegister = async (e) => {
     e.preventDefault();
+    if (!emailRegex.test(email)) {
+      setMessage('Invalid email address. Please enter a valid email.');
+      return;
+    } 
     try {
       const response = await axios.post('http://localhost:3000/api/v1/users/register', {
         name,
@@ -25,7 +36,9 @@ const Register = () => {
       login(data.token);
       console.log('Registration Response:', data);
 
-      
+      localStorage.setItem('userName',name);
+      localStorage.setItem('Email',email);
+
       localStorage.setItem('token', data.token);
       console.log(data.token)
       navigate('/login');
@@ -46,7 +59,7 @@ const Register = () => {
         
        <button type='submit'>Signup</button>
       
-       {/* <span>Already have an account ? <Link to="/login">Login</Link></span> */}
+       <span>Already have an account ? <Link to="/login">Login</Link></span>
       </form>
       {message && <p>{message}</p>}
     </div>

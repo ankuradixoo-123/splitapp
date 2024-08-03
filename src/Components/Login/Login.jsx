@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';  // Ensure this path is correct
@@ -11,7 +11,11 @@ const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
+  useEffect(() => {
+    localStorage.clear();
+  }, [])
   const handleLogin = async (e) => {
+
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3000/api/v1/users/login', {
@@ -21,10 +25,11 @@ const Login = () => {
 
       const { data } = response;
       login(data.token);
-
+      
       // Store the token in localStorage or sessionStorage if needed
+      // localStorage.setItem('userName',name)
       localStorage.setItem('token', data.token);
-
+          
       setMessage('Login successful!');
       // Redirect to the dashboard or home page
       navigate('/Home');
